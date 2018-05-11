@@ -5,6 +5,10 @@ const $http = {
   login(data) {
     return Axios.post('user/auth', data);
   },
+  // 用户列表
+  userList(data) {
+    return Axios.post('user/List', data);
+  },
   // 找回密码发送邮件
   forgetPwd(data) {
     return Axios.post('user/forgetPwd', data);

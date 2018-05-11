@@ -25,7 +25,7 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="5">
           <el-input
           placeholder="请输入邮箱或关键字"
           prefix-icon="el-icon-search"
@@ -35,31 +35,31 @@
       </el-row>
 
     <el-table
-      :data="staff_data"
+      :data="user_data"
       border
       style="width: 98%;margin:0 auto;">
       <el-table-column
-        type="selection"
-        width="55">
+        type="index"
+        label="#">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="用户名（NLE账户邮箱）">
+        prop="mail"
+        label="注册邮箱">
       </el-table-column>
       <el-table-column
-        prop="name_cn"
-        label="姓名">
+        prop="date_register"
+        label="注册时间">
       </el-table-column>
       <el-table-column
-        prop="name_en"
-        label="手机号">
+        prop="date_login"
+        label="最后登录时间">
       </el-table-column>
       <el-table-column
-        prop="address"
-        label="最后登陆时间">
+        prop="authority"
+        label="权限">
       </el-table-column>
       <el-table-column
-        prop="address"
+        prop="handle"
         label="操作">
         <template>
           <el-button size="mini">编辑资料</el-button>
@@ -80,7 +80,13 @@
 export default {
   data() {
     return {
-      staff_data: [], // 员工列表
+      user_data: [{
+        mail: '1234@qq.com',
+        date_register: '201403',
+        date_login: '201408',
+        authority: '权限',
+      },
+      ],
       options2: [{
         value: '选项1',
         label: '权限',
@@ -101,15 +107,14 @@ export default {
   //   MySelect,
   // },
   created() {
+    this.getList();
   },
   computed: {
   },
   methods: {
-    addCommodity() {
-      this.$router.push({
-        name: 'staffAdd',
-      });
-    },
+    //    $http.userList(this.params).then((res) => {
+    //    this.user_data = res.data.data;
+    //  })
   },
 };
 </script>

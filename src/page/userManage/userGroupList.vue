@@ -1,74 +1,87 @@
 <template>
 <div class="storeManage">
-
-    <div class="utils" :class="$style.util">
-      <el-button @click="addCommodity" type="primary">添加员工组</el-button>
-    </div>
-
+   <wms-tags
+     :tagList="tag_data"
+     @change="userType"
+     v-model="params.status"
+   >
     <el-table
-      :data="staff_group_data"
+      :data="user_group_data"
       border
       style="width: 98%;margin:0 auto;">
       <el-table-column
-        type="selection"
-        width="55">
+        type="index"
+        label="#">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="会员组(中文)">
+        prop="mail"
+        label="账户邮箱">
       </el-table-column>
       <el-table-column
-        prop="name_cn"
-        label="会员组(Enlglish)">
+        prop="submit_date"
+        label="提交申请权限认证时间">
       </el-table-column>
       <el-table-column
-        prop="name_en"
-        label="成员数量">
+        prop="private_repository"
+        label="可创建/已创建私有仓库数">
       </el-table-column>
       <el-table-column
-        prop="address"
-        label="最后登陆时间">
+        prop="public_repository"
+        label="可创建/已创建公共仓库数">
       </el-table-column>
       <el-table-column
         prop="address"
         label="操作">
         <template>
-          <el-button size="mini">修改资料</el-button>
-          <el-button size="mini">修改权限</el-button>
-          <el-button size="mini">成员</el-button>
+          <el-button size="mini">仓库数设置</el-button>
+          <el-button size="mini">仓库详情</el-button>
+          <el-button size="mini">提交详情</el-button>
         </template>
       </el-table-column>
     </el-table>
-
+   </wms-tags>
 </div>
 </template>
 
 <script>
-// import getListData from '@/mixin';
-// import WmsTags from '@/components/wms_tags';
+import mixin from '@/mixin/list';
+import WmsTags from '@/components/wms_tags';
 // import MySelect from '@/components/my_select';
 // import MyGroup from '@/components/my_group';
-// import $http from '@/api';
+import $http from '@/api';
 
 export default {
   data() {
     return {
-      staff_group_data: [], // 员工组列表
+      tag_data: [
+        { name: '0', label: '可创建仓库用户列表' },
+        { name: '1', label: '可租赁仓库用户列表' },
+        { name: '2', label: '员工身份用户列表' },
+      ],
+      user_group_data: [
+        { mail: '1234@qq.com',
+          submit_date: '201403',
+          private_repository: '201408',
+          public_repository: '权限',
+        }],
     };
   },
-  // components: {
-  //   WmsTags,
-  //   MyGroup,
-  //   MySelect,
-  // },
+  mixins: [mixin],
+  components: {
+    WmsTags,
+  },
   created() {
+    this.getList();
   },
   computed: {
   },
   methods: {
-    addCommodity() {
-      this.$router.push({
-        name: 'staffGroupAdd',
+    userType() {
+      this.getList();
+    },
+    getList() {
+      $http.userlist(this.params).then((res) => {
+        this.user_group_data = res.data.data;
       });
     },
   },
