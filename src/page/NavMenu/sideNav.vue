@@ -86,7 +86,7 @@ export default {
     padding: 0;
     .side_nav_li {
       list-style: none;
-      width: 110px;
+      width: 120px;
       cursor: pointer;
       height: 32px;
       line-height: 32px;

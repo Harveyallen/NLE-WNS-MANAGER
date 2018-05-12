@@ -15,6 +15,15 @@ function getView(viewName) {
           userAdd: require('@/page/userManage/userAdd'), // 新增员工组
           userGroupList: require('@/page/userManage/userGroupList'), // 员工组列表
           userGroupAdd: require('@/page/userManage/userGroupAdd'), // 新增员工组
+          storeInfo: require('@/page/userManage/storeInfo'), // 创建仓库预览
+          storeInfoDetails: require('@/page/userManage/storeInfoDetails'), // 创建仓库预览
+          authList: require('@/page/authManage/authList'), // 仓库所有者权限认证状态列表
+          authInfo: require('@/page/authManage/authInfo'), // 列表详情
+          renterList: require('@/page/authManage/renterList'), // 仓库租户权限认证状态列表
+          renterInfo: require('@/page/authManage/renterInfo'), // 列表详情
+          commodityManage: require('@/page/storeManage/commodityManage'), // 商品分类管理
+          commodityInfo: require('@/page/storeManage/commodityInfo'), // 商品信息
+          commodityEdit: require('@/page/storeManage/commodityEdit'), // 商品编辑
         };
         resolve(mapItem[viewName]);
       },

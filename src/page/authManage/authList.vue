@@ -1,16 +1,21 @@
 <template>
 <div class="storeManage">
 
-      <el-row :class='$style.until' type="flex" justify="space-around">
-        <el-col :span="6">
+      <el-row :class='$style.until' :gutter="20">
+        <el-col :span="6" offset="2">
           <el-date-picker
-            v-model="value1"
-            type="date"
-            placeholder="选择日期">
+            v-model="value7"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="pickerOptions2">
           </el-date-picker>
         </el-col>
-        <el-col :span="6">
-          <el-select v-model="value7" placeholder="请选择">
+        <el-col :span="6" offset="2">
+          <el-select v-model="value2" placeholder="请选择">
             <el-option
               v-for="item in options2"
               :key="item.value"
@@ -39,31 +44,25 @@
       </el-table-column>
       <el-table-column
         prop="mail"
-        label="注册邮箱"
-        width="220">
+        label="注册邮箱">
       </el-table-column>
       <el-table-column
         prop="date_register"
-        label="注册时间"
-        width="180">
+        label="注册时间">
       </el-table-column>
       <el-table-column
         prop="date_login"
-        label="最后登录时间"
-        width="180">
+        label="最后登录时间">
       </el-table-column>
       <el-table-column
         prop="authority"
-        label="权限"
-        width="180">
+        label="权限">
       </el-table-column>
       <el-table-column
         prop="handle"
         label="操作">
-        <template slot-scope="scope">
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
+        <template>
+          <el-button size="mini">编辑资料</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -76,7 +75,7 @@
 // import WmsTags from '@/components/wms_tags';
 // import MySelect from '@/components/my_select';
 // import MyGroup from '@/components/my_group';
-import $http from '@/api';
+// import $http from '@/api';
 
 export default {
   data() {
@@ -99,9 +98,7 @@ export default {
         value: '选项3',
         label: '租赁仓库',
       }],
-      value1: '',
-      value7: '',
-      input21: '',
+      value2: '',
     };
   },
   // components: {
@@ -113,19 +110,11 @@ export default {
     this.getList();
   },
   computed: {
-
   },
   methods: {
-    getList() {
-      $http.userList(this.params).then((res) => {
-        this.user_data = res.data.data;
-      });
-    },
-    ownerAuthDetail() {
-      this.$router.push({
-        name: 'userGroupList',
-      });
-    },
+    //    $http.userList(this.params).then((res) => {
+    //    this.user_data = res.data.data;
+    //  })
   },
 };
 </script>

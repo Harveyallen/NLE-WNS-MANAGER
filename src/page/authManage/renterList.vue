@@ -15,31 +15,27 @@
       </el-table-column>
       <el-table-column
         prop="mail"
-        width="200"
         label="账户邮箱">
       </el-table-column>
       <el-table-column
         prop="submit_date"
-        width="200"
         label="提交申请权限认证时间">
       </el-table-column>
       <el-table-column
         prop="private_repository"
-        width="200"
         label="可创建/已创建私有仓库数">
       </el-table-column>
       <el-table-column
         prop="public_repository"
-        width="200"
         label="可创建/已创建公共仓库数">
       </el-table-column>
       <el-table-column
         prop="address"
         label="操作">
-        <template slot-scope="scope">
-          <el-button @click="storeSet(scope.row.id)" size="mini">仓库数设置</el-button>
-          <el-button @click="storeInfo(scope.row.id)" size="mini">仓库详情</el-button>
-          <el-button @click="storeSubmit(scope.row.id)" size="mini">提交详情</el-button>
+        <template>
+          <el-button size="mini">仓库数设置</el-button>
+          <el-button size="mini">仓库详情</el-button>
+          <el-button size="mini">提交详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,23 +80,9 @@ export default {
       this.getList();
     },
     getList() {
-      $http.userList(this.params).then((res) => {
+      $http.userlist(this.params).then((res) => {
         this.user_group_data = res.data.data;
       });
-    },
-    storeSet() {
-
-    },
-    storeInfo(id) {
-      this.$router.push({
-        name: 'storeInfo',
-        query: {
-          id,
-        },
-      });
-    },
-    storeSubmit() {
-
     },
   },
 };
