@@ -70,6 +70,11 @@ export const routerMap = [
             path: 'userGroupList/storeInfoDetails',
             nav: 0,
           },
+          {
+            name: 'storeSubmitDetails',
+            path: 'userGroupList/storeSubmitDetails',
+            nav: 0,
+          },
         ],
       },
       {
@@ -111,7 +116,7 @@ export const routerMap = [
         nav: 1,
         children: [
           {
-            name: 'commodityMange',
+            name: 'commodityManage',
             path: 'commodityManage',
             nav: 2,
           },

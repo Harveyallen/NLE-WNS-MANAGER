@@ -45,17 +45,17 @@
       <el-table-column
         prop="date_register"
         label="注册时间"
-        width="180">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="date_login"
         label="最后登录时间"
-        width="180">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="authority"
         label="权限"
-        width="180">
+        width="200">
       </el-table-column>
       <el-table-column
         prop="handle"

@@ -1,59 +1,114 @@
 <template>
-<div class="goods_edit">
-  <mdoel-form>
-      <el-form slot="left" label-width="120px">
-        <el-form-item label="当前仓库">
-          NLE总库
-        </el-form-item>
-        <el-form-item label="中文组名">
-          <el-input v-model="form.name_cn" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="英文组名">
-          <el-input v-model="form.name_en" size="small"></el-input>
-        </el-form-item>
-        <el-form-item label="商品备注">
-          <el-input
-            v-model="form.remark"
-            type="textarea"
-            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :loading="$store.state.config.button_loading">提交</el-button>
-        </el-form-item>
-      </el-form>
-    </mdoel-form>
-</div>
+  <model-form>
+    <el-form slot="left" label-width="120px">
+      <label :class="$style.label"> 审核信息 </label>
+      <el-form-item label="审核状态">
+        {{form.status}}
+      </el-form-item>
+      <el-form-item label="审核人">
+        {{form.auditor}}
+      </el-form-item>
+      <el-form-item label="审核时间">
+        {{form.date}}
+      </el-form-item>
+      <label :class="$style.label"> 基本信息 </label>
+      <el-form-item label="仓库名称">
+        {{form.warehouse_name_cn}}
+      </el-form-item>
+      <el-form-item label="英文名称">
+        {{form.warehouse_name_en}}
+      </el-form-item>
+      <el-form-item label="仓库产权方">
+        {{form.warehouse_property}}
+      </el-form-item>
+      <el-form-item label="联系电话">
+        {{form.contact_number}}
+      </el-form-item>
+      <label :class="$style.label">地址信息</label>
+      <el-form-item label="国家">
+        {{form.country}}
+      </el-form-item>
+      <el-form-item label="邮政编码">
+        {{form.contact_email}}
+      </el-form-item>
+      <el-form-item label="门牌号">
+        {{form.door_no}}
+      </el-form-item>
+      <el-form-item label="城市">
+        {{form.city}}
+      </el-form-item>
+      <el-form-item label="街道">
+        {{form.street}}
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="goBack">返回</el-button>
+      </el-form-item>
+    </el-form>
+
+    <div slot="right">
+      <label :class="$style.label"> 仓库平面图(选填) </label>
+    </div>
+  </model-form>
 </template>
 
 <script>
-import MdoelForm from '@/components/form';
-// import $http from '@/api';
+import ModelForm from '@/components/form';
+import $http from '@/api';
+import mixin from '@/mixin/form_config';
 
 export default {
   components: {
-    MdoelForm,
+    ModelForm,
   },
   data() {
     return {
       form: {
-        name_cn: '',
-        name_en: '',
-        remark: '',
+        status: '', // 审核状态
+        auditor: '', // 审核人
+        date: '', // 审核时间
+        warehouse_name_cn: '', // 仓库中文名
+        warehouse_name_en: '', // 仓库英文名
+        contact_number: '',
+        country: '', // 国家
+        contact_email: '', // 邮箱
+        door_no: '', // 门牌号
+        city: '', // 城市
+        street: '', // 街道
+        warehouse_plan: '', // logo
       },
     };
   },
-  created() {
-  },
   computed: {
+    // form() {
+    //   return {},
+    // },
+  },
+  mixins: [mixin],
+  created() {
+    if (!this.$route.query.id) return;
+    this.getInfo();
   },
   methods: {
+    goBack() {
+      this.$router.push({
+        name: 'storeInfo',
+      });
+    },
+    getInfo() {
+      $http.WarehouseInfo(this.$route.query.id).then((res) => {
+        res.data_id = res.data.id;
+        this.form = res.data;
+      });
+    },
   },
 };
 </script>
 
 <style lang="less" module>
-@import '../../less/public_variable.less';
-.label {
-  font-size: 18px;
-}
+  .label {
+    font-size: 18px;
+  }
+  .avatar_uploader {
+    margin-top: 10px;
+  }
 </style>

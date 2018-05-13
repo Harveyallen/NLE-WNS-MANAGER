@@ -39,7 +39,7 @@
         <template slot-scope="scope">
           <el-button @click="storeSet(scope.row.id)" size="mini">仓库数设置</el-button>
           <el-button @click="storeInfo(scope.row.id)" size="mini">仓库详情</el-button>
-          <el-button @click="storeSubmit(scope.row.id)" size="mini">提交详情</el-button>
+          <el-button @click="storeSubmitDetails(scope.row.id)" size="mini">提交详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -99,8 +99,13 @@ export default {
         },
       });
     },
-    storeSubmit() {
-
+    storeSubmitDetails(id) {
+      this.$router.push({
+        name: 'storeSubmitDetails',
+        query: {
+          id,
+        },
+      });
     },
   },
 };

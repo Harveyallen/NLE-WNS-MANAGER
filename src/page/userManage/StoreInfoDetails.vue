@@ -1,5 +1,5 @@
 <template>
-  <mdoel-form>
+  <model-form>
     <el-form slot="left" label-width="120px">
       <label :class="$style.label"> 基本信息 </label>
       <el-form-item label="中文名称">
@@ -65,37 +65,25 @@
       <el-form-item v-if="this.$route.query.type" label="审核状态">
         {{ form.lease_status | statusType}}
       </el-form-item>
-      <el-form-item label="是否开通">
-        <el-switch
-        :value="form.status"
-        :active-value="1"
-        :inactive-value="0"
-        ></el-switch>
-      </el-form-item>
-      <el-form-item v-if="!$route.query.type">
-        <el-button type="primary"
-        :loading="$store.state.config.button_loading"
-        @click="goLeaseAudit">
-        租赁
-        </el-button>
-        <el-button>取消</el-button>
+      <el-form-item>
+        <el-button type="primary" @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
 
     <div slot="right">
       <label :class="$style.label"> 仓库LOGO(选填) </label>
     </div>
-  </mdoel-form>
+  </model-form>
 </template>
 
 <script>
-import MdoelForm from '@/components/form';
+import ModelForm from '@/components/form';
 import $http from '@/api';
 import mixin from '@/mixin/form_config';
 
 export default {
   components: {
-    MdoelForm,
+    ModelForm,
   },
   data() {
     return {
@@ -116,13 +104,9 @@ export default {
   },
   name: 'addStoreManage',
   methods: {
-    goLeaseAudit() {
+    goBack() {
       this.$router.push({
-        name: 'LeaseAudit',
-        query: {
-          name: this.form.name_en,
-          id: this.form.id,
-        },
+        name: 'storeInfo',
       });
     },
     // 获取仓库单条信息

@@ -94,7 +94,7 @@ export default {
     // 查看详情
     info(ids) {
       this.$router.push({
-        name: 'StoreInfoDetails',
+        name: 'storeInfoDetails',
         query: {
           id: ids,
         },

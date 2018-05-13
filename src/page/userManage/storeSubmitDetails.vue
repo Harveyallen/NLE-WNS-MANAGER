@@ -47,6 +47,16 @@
 
     <div slot="right">
       <label :class="$style.label"> 仓库平面图(选填) </label>
+      <el-upload
+        :class="$style.avatar_uploader"
+        class="avatar-uploader"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
     </div>
   </model-form>
 </template>
@@ -94,9 +104,9 @@ export default {
         name: 'storeInfo',
       });
     },
+    // 获取仓库审核信息
     getInfo() {
       $http.WarehouseInfo(this.$route.query.id).then((res) => {
-        res.data_id = res.data.id;
         this.form = res.data;
       });
     },
