@@ -91,7 +91,7 @@ export default {
   methods: {
     goBack() {
       this.$router.push({
-        name: 'storeInfo',
+        name: 'authList',
       });
     },
     getInfo() {

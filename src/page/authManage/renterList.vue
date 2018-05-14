@@ -56,7 +56,7 @@
           prop="handle"
           label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="goAuthInfo(scope.row.id)">详情</el-button>
+            <el-button size="mini" @click="goRenterInfo(scope.row.id)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -110,9 +110,9 @@ export default {
         this.user_data = res.data.data;
       });
     },
-    goAuthInfo(id) {
+    goRenterInfo(id) {
       this.$router.push({
-        name: 'authInfo',
+        name: 'renterInfo',
         params: {
           id,
         },
