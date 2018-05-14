@@ -10,7 +10,7 @@
           </el-date-picker>
         </el-col>
         <el-col :span="6">
-          <el-select v-model="value7" placeholder="请选择">
+          <el-select v-model="value7" placeholder="权限">
             <el-option
               v-for="item in options2"
               :key="item.value"
@@ -89,15 +89,14 @@ export default {
       },
       ],
       options2: [{
-        value: '选项1',
-        label: '权限',
-        disabled: true,
-      }, {
         value: '选项2',
         label: '创建仓库',
       }, {
         value: '选项3',
         label: '租赁仓库',
+      }, {
+        value: '选项4',
+        label: '员工',
       }],
       value1: '',
       value7: '',

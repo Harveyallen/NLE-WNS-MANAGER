@@ -42,7 +42,7 @@ export default {
   name: 'editPassword',
   methods: {
     onSubmit() {
-      $http.changePwd(this.form).then((res) => {
+      $http.editPwd(this.form).then((res) => {
         if (res.status) return;
         this.$message({
           message: '修改密码成功，请重新登录',

@@ -13,6 +13,10 @@ const $http = {
   forgetPwd(data) {
     return Axios.post('user/forgetPwd', data);
   },
+  // 更改密码
+  editPwd(data) {
+    return Axios.post('user/editPassword', data);
+  },
   // 找回密码
   resetPwdEnd(data) {
     return Axios.post('user/resetPwdEnd', data);

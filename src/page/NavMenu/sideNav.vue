@@ -10,30 +10,6 @@
         </li>
       </ul>
     </div>
-    <!-- <el-menu
-    background-color="#444154"
-    :default-active="$route.name"
-    class="el-menu-vertical-demo"
-    text-color="#fff"
-    :collapse="true">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="iconfont" v-html="sideNavTitle.icon"></i>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">{{$t(sideNavTitle.name)}}</span>
-          <el-menu-item
-          :index="item.name"
-          v-for="item in sideNavData"
-          :key="item.name"
-          @click="$router.push({
-            name: item.name,
-          })">
-            {{$t(item.name)}}
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-    </el-menu> -->
   </div>
 </template>
 <script>
