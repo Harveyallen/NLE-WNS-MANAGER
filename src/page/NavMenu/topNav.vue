@@ -1,19 +1,28 @@
 <template>
   <div :class="$style.top_nav" class="top_nav">
     <div :class="$style.nav">
-       <div :class="$style.top_nav_logo">
+      <div :class="$style.top_nav_logo">
         <span>NLE WMS</span>
       </div>
       <div :class="$style.side_nav_switch">
         <i class="iconfont">&#xe613;</i>
       </div>
-      <div :class="$style.lang_switch">
-        <el-dropdown>
-          <span class="el-dropdown-link">
-            English<i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
+      <div :class="$style.top_nav_item">
+        <i class="iconfont">&#xe613;</i>
+        <span>当前账户{{email}}</span>
+      </div>
+      <div :class="$style.top_nav_item">
+        <i class="iconfont">&#xe613;</i>
+        <el-dropdown trigger="click">
+         <el-button type="success" size="mini" plain>
+           <span class="el-dropdown-link">
+           新消息<i class="el-icon-arrow-down el-icon--right"></i>
+           </span>
+         </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">简体中文</el-dropdown-item>
+            <el-dropdown-item v-for="item in authInfo" :key="item.index">
+              {{item.message}}
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -25,25 +34,20 @@
           </router-link>
         </li>
       </ul>
-    </div>
-    <div :class="$style.user_info">
-      <div :class="$style.user">
-        <el-dropdown>
-          <div :class="$style.img">
-            管
-          </div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>{{email}}</el-dropdown-item>
-            <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <div :class="$style.mdoel" v-for="index in 3" :key="index">
-          <div :class="$style.model_top" :style="{
-            color: ['#ffbb17', '#57c38a', '#e7e5f9'][index-1]}">
-            <i class="iconfont">&#xe653;</i>
-          </div>
-          <span>{{['创建', '租赁', '员工'][index-1]}}</span>
-        </div>
+      <div :class="$style.top_nav_item">
+          <el-dropdown>
+            <el-button type="primary" size="mini" plain>
+            <span class="el-dropdown-link">
+            English<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a">简体中文</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+      </div>
+      <div :class="$style.top_nav_item">
+          <el-button type="primary" @click.native="logout" size="mini" plain>退出登录</el-button>
       </div>
     </div>
   </div>
@@ -57,6 +61,10 @@ export default {
   data() {
     return {
       email: '',
+      authInfo: [{ message: '03/04 xx@qq.com提交创建仓库申请' },
+        { message: '03/04 xx@qq.com提交创建仓库申请' },
+        { message: '03/04 xx@qq.com提交创建仓库申请' },
+      ],
     };
   },
   methods: {
@@ -87,6 +95,10 @@ export default {
     topNavData() {
       return this.$store.state.routerData.routerMap[0].children;
     },
+    getSubmitTime() {
+      const loginTime = '2018/5/14';
+      return loginTime;
+    },
   },
 };
 </script>
@@ -107,7 +119,7 @@ export default {
   .nav {
     width: 100%;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
   }
   .switch(@width) {
     border-right: 1px solid;
@@ -134,15 +146,19 @@ export default {
       cursor: pointer;
     }
   }
-  .lang_switch {
-    .switch(113px)
+  .top_nav_item {
+    height: 102px;
+    line-height: 102px;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 14px;
   }
   .top_nav_ul {
     padding: 0;
-    margin: 35px 0 0 39px;
+    margin: 35px 0 0 60px;
     display: flex;
-    flex-wrap: row;
-    width: 550px;
+    flex-wrap: nowrap;
+    width: 480px;
     .top_nav_li {
       list-style: none;
       text-align: center;
@@ -162,14 +178,15 @@ export default {
     }
   }
   .user_info {
-    width: 20%;
+    width: 10%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
+     .lang_switch {
+     .switch(113px)
+     }
     .user {
       border-left: 1px solid;
-      display: flex;
-      flex-flow: row wrap;
       border-right: 1px solid;
       border-color: @separateLine;
       width: 225px;
