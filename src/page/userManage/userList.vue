@@ -61,9 +61,9 @@
         prop="handle"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
-          <el-button @click="ownerAuthDetail(scope.row.id)"  size="mini">创建权限详情</el-button>
+          <el-button @click="goAuthList(scope.row.id)"  size="mini">创建权限详情</el-button>
+          <el-button @click="goRenterList(scope.row.id)"  size="mini">租赁权限详情</el-button>
+          <el-button @click="goStaffList(scope.row.id)"  size="mini">员工权限详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -109,20 +109,30 @@ export default {
   //   MySelect,
   // },
   created() {
-    this.getList();
+    this.getUserList();
   },
   computed: {
 
   },
   methods: {
-    getList() {
+    getUserList() {
       $http.userList(this.params).then((res) => {
         this.user_data = res.data.data;
       });
     },
-    ownerAuthDetail() {
+    goAuthList() {
       this.$router.push({
-        name: 'userGroupList',
+        name: 'authList',
+      });
+    },
+    goRenterList() {
+      this.$router.push({
+        name: 'renterList',
+      });
+    },
+    goStaffList() {
+      this.$router.push({
+        name: 'staffList',
       });
     },
   },

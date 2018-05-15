@@ -56,6 +56,11 @@ export const routerMap = [
             nav: 2,
           },
           {
+            name: 'manageAdd',
+            path: 'userGroupList/manageAdd',
+            nav: 0,
+          },
+          {
             name: 'userGroupAdd',
             path: 'userGroupList/userGroupAdd',
             nav: 0,
@@ -104,6 +109,11 @@ export const routerMap = [
             name: 'renterInfo',
             path: 'renterList/renterInfo',
             nav: 0,
+          },
+          {
+            name: 'staffList',
+            path: 'staffList',
+            nav: 2,
           },
         ],
       },

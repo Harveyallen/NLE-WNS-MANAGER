@@ -1,10 +1,20 @@
 <template>
 <div class="storeManage">
-   <wms-tags
-     :tagList="tag_data"
-     @change="userType"
-     v-model="params.status"
-   >
+     <el-row :class='$style.until' type="flex" justify="space-between">
+       <el-col :span="6">
+         <el-input :class='$style.user_input'
+                   placeholder="请输入邮箱或关键字"
+                   prefix-icon="el-icon-search"
+                   v-model="input21">
+         </el-input>
+       </el-col>
+       <el-col :span="4">
+         <el-button :class='$style.user_btn' @click="manageAdd" type="primary"  plain>
+           {{$t('manageAdd')}}
+         </el-button>
+       </el-col>
+     </el-row>
+
     <el-table
       :data="user_group_data"
       border
@@ -15,35 +25,24 @@
       </el-table-column>
       <el-table-column
         prop="mail"
-        width="200"
+        width="400"
         label="账户邮箱">
       </el-table-column>
       <el-table-column
         prop="submit_date"
-        width="200"
-        label="提交申请权限认证时间">
-      </el-table-column>
-      <el-table-column
-        prop="private_repository"
-        width="200"
-        label="可创建/已创建私有仓库数">
-      </el-table-column>
-      <el-table-column
-        prop="public_repository"
-        width="200"
-        label="可创建/已创建公共仓库数">
+        width="400"
+        label="最后登录时间">
       </el-table-column>
       <el-table-column
         prop="address"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="storeSet(scope.row.id)" size="mini">仓库数设置</el-button>
-          <el-button @click="storeInfo(scope.row.id)" size="mini">仓库详情</el-button>
-          <el-button @click="storeSubmitDetails(scope.row.id)" size="mini">提交详情</el-button>
+          <el-button @click="removeManager(scope.row.id)" size="mini">
+            {{$t('removeManager')}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-   </wms-tags>
 </div>
 </template>
 
@@ -57,17 +56,11 @@ import $http from '@/api';
 export default {
   data() {
     return {
-      tag_data: [
-        { name: '0', label: '可创建仓库用户列表' },
-        { name: '1', label: '可租赁仓库用户列表' },
-        { name: '2', label: '员工身份用户列表' },
-      ],
       user_group_data: [
         { mail: '1234@qq.com',
           submit_date: '201403',
-          private_repository: '201408',
-          public_repository: '权限',
         }],
+      input21: '',
     };
   },
   mixins: [mixin],
@@ -80,31 +73,16 @@ export default {
   computed: {
   },
   methods: {
-    userType() {
-      this.getList();
-    },
     getList() {
       $http.userList(this.params).then((res) => {
         this.user_group_data = res.data.data;
       });
     },
-    storeSet() {
-
+    removeManager() {
     },
-    storeInfo(id) {
+    manageAdd() {
       this.$router.push({
-        name: 'storeInfo',
-        query: {
-          id,
-        },
-      });
-    },
-    storeSubmitDetails(id) {
-      this.$router.push({
-        name: 'storeSubmitDetails',
-        query: {
-          id,
-        },
+        name: 'manageAdd',
       });
     },
   },
@@ -113,9 +91,15 @@ export default {
 
 <style lang="less" module>
 @import '../../less/public_variable.less';
-
-.util {
-  text-align: right;
+.user_top{
+  float:right;
+}
+.user_input {
+  display: block;
+  width: 240px;
+  margin: 20px;
+}
+.user_btn {
   margin: 20px;
 }
 </style>
