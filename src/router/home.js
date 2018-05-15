@@ -101,6 +101,11 @@ export const routerMap = [
             nav: 0,
           },
           {
+            name: 'storeList',
+            path: 'authList/storeList',
+            nav: 0,
+          },
+          {
             name: 'renterList',
             path: 'renterList',
             nav: 2,

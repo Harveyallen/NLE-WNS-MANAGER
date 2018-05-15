@@ -9,6 +9,10 @@ const $http = {
   userList(data) {
     return Axios.post('user/List', data);
   },
+  // 仓库所有者列表
+  ownerList(data) {
+    return Axios.get('admin/owner/application', data);
+  },
   // 找回密码发送邮件
   forgetPwd(data) {
     return Axios.post('user/forgetPwd', data);
@@ -162,10 +166,6 @@ const $http = {
   // 单条商品信息
   getGoodsInfo(data) {
     return Axios.get(`product/${data}`);
-  },
-  // 已申请列表
-  ownerList(data) {
-    return Axios.get('owner', { params: data });
   },
   // 租赁仓库列表
   rentersList(data) {

@@ -1,5 +1,7 @@
 <template>
-  <model-form>
+ <div>
+  <div :class="$style.mask"></div>
+  <model-form :class="$style.view">
     <el-form slot="left" label-width="120px">
       <label :class="$style.label"> 审核信息 </label>
       <el-form-item label="审核状态">
@@ -49,6 +51,7 @@
       <label :class="$style.label"> 仓库平面图(选填) </label>
     </div>
   </model-form>
+ </div>
 </template>
 
 <script>
@@ -105,6 +108,21 @@ export default {
 </script>
 
 <style lang="less" module>
+  .mask {
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    position:fixed;
+    background:rgba(0,0,0,0.3);
+    z-index: 9999;
+  }
+  .view {
+    top:0;
+    width: 80%;
+    position: absolute;
+    z-index: 10000;
+  }
   .label {
     font-size: 18px;
   }

@@ -1,28 +1,12 @@
 <template>
   <div>
-  <el-row :class='$style.until' type="flex" justify="space-around">
+  <el-row :class='$style.until' type="flex" justify="space-between">
     <el-col :span="4">
       <el-date-picker
         v-model="value1"
         type="date"
         placeholder="选择日期">
       </el-date-picker>
-    </el-col>
-    <el-col :span="7">
-      <span>{{$t(defaultPublicNumber)}}</span>
-      <el-input-number
-        v-model="num1" @change="handleChange1"
-        :min="1"
-        size="middle">
-      </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <span>{{$t(defaultPrivateNumber)}}</span>
-      <el-input-number
-        v-model="num1" @change="handleChange1"
-        :min="1"
-        size="middle">
-      </el-input-number>
     </el-col>
     <el-col :span="4">
       <el-input
@@ -34,29 +18,38 @@
   </el-row>
   <wms-tags
     :tagList="tag_data"
-    @change="getList"
+    @change="getOwnerList"
     v-model="params.status">
     <el-table
-      :data="user_data"
+      :data="list_data"
       border
       style="width: 98%;margin:0 auto;">
       <el-table-column
         prop="mail"
-        label="用户邮箱">
+        label="仓库名称">
       </el-table-column>
       <el-table-column
         prop="date_register"
-        label="提交申请权限认证时间">
+        label="仓库编号">
       </el-table-column>
       <el-table-column
         prop="audit_status"
-        label="审核状态">
+        label="国家">
+      </el-table-column>
+      <el-table-column
+        prop="audit_status"
+        label="仓库面积（平方米）">
+      </el-table-column>
+      <el-table-column
+        prop="audit_status"
+        label="开通状态">
       </el-table-column>
       <el-table-column
         prop="handle"
-        label="操作">
+        label="操作"
+        width="400">
         <template slot-scope="scope">
-          <el-button size="mini" @click="goAuthInfo(scope.row.id)">详情</el-button>
+          <el-button size="mini" @click="storeInfo(scope.row.id)">仓库详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -67,30 +60,24 @@
 <script>
 import mixin from '@/mixin/list';
 import WmsTags from '@/components/wms_tags';
-// import MySelect from '@/components/my_select';
-// import MyGroup from '@/components/my_group';
 import $http from '@/api';
 
 export default {
   data() {
     return {
       tag_data: [
-        { name: '0', label: '全部' },
-        { name: '1', label: '待审核' },
-        { name: '2', label: '已通过' },
-        { name: '3', label: '未通过' },
+        { name: '0', label: '私有仓库' },
+        { name: '1', label: '公共仓库' },
       ],
-      user_data: [{
-        mail: '1234@qq.com',
-        date_register: '201403',
-        audit_status: '已通过',
-      },
-      ],
+      owner_data: [],
+      list_data: [],
       defaultPublicNumber: 'defaultPublicNumber',
       defaultPrivateNumber: 'defaultPrivateNumber',
       value1: '',
       num1: '',
+      num2: '',
       input21: '',
+      seen: false,
     };
   },
   components: {
@@ -98,7 +85,7 @@ export default {
   },
   mixins: [mixin],
   created() {
-    this.getList();
+    this.getOwnerList();
   },
   computed: {
   },
@@ -106,14 +93,30 @@ export default {
     handleChange1() {
 
     },
-    getList() {
-      $http.userList(this.params).then((res) => {
-        this.user_data = res.data.data;
+    getOwnerList() {
+      $http.ownerList(this.params).then((res) => {
+        this.owner_data = res.data.data;
+        const arr = [];
+        this.owner_data.forEach((Item) => {
+          const obj = {};
+          obj.mail = Item.applicant.email;
+          obj.date_register = Item.applicant.created_at;
+          arr.push(obj);
+        });
+        this.list_data = arr;
       });
     },
-    goAuthInfo(id) {
+    setStoreNumber() {
+      this.seen = true;
+    },
+    checkStore() {
       this.$router.push({
-        name: 'authInfo',
+        name: 'storeList',
+      });
+    },
+    storeInfo(id) {
+      this.$router.push({
+        name: 'storeInfo',
         params: {
           id,
         },
@@ -125,8 +128,36 @@ export default {
 
 <style lang="less" module>
 @import '../../less/public_variable.less';
+.mask {
+  width:100%;
+  height:100%;
+  left:0;
+  top:0;
+  position:fixed;
+  background:rgba(0,0,0,0.3);
+  z-index: 9999;
+   .view {
+     position: fixed;
+     width:316px;
+     height:168px;
+     padding: 20px;
+     overflow: hidden;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-50%);
+     z-index: 10000;
+     border-radius: 6px;
+     background-color: #fff;
+     .number{
+       margin: 20px auto;
+     }
+     .btn{
+       margin-left: 86px;
+     }
+   }
+}
+
 .until{
-  margin: 20px;
-  padding-left: 50px;
+  margin: 10px 40px;
 }
 </style>

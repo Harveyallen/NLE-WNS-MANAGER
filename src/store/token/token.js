@@ -20,8 +20,8 @@ function addToken(keep, key, val) {
 }
 
 // 获取到本地数据
-function getData(kye) {
-  return localStorage.getItem(kye) || sessionStorage.getItem(kye) || '';
+function getData(key) {
+  return localStorage.getItem(key) || sessionStorage.getItem(key) || '';
 }
 
 const token = {
@@ -38,7 +38,6 @@ const token = {
     },
     // 添加token
     addToken(state, data) {
-      console.log(addToken(data.keep, 'TOKEN', tokenData(data.token)));
       state.token = addToken(data.keep, 'TOKEN', tokenData(data.token));
       // state.id = addToken(data.keep, 'ID', data.id);
     },

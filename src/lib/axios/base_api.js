@@ -5,8 +5,8 @@ switch (baseUrl) {
     base = 'https://dev-nl-erp-api.nle-tech.com/';
     break;
   default:
-    // base = 'https://dev-wms-api-v2.nle-tech.com/';
-    base = 'http://192.168.0.199:10005';
+    base = 'https://dev-wms-api-v2.nle-tech.com/';
+    // base = 'http://192.168.0.199:10005';
     break;
     // base = 'http://192.168.0.199:10016/';
     // base = 'http://192.168.0.79:10000/';
