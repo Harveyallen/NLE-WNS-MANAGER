@@ -13,6 +13,20 @@ const $http = {
   ownerList(data) {
     return Axios.get('admin/owner/application', data);
   },
+  // 仓库租赁者列表
+  renterList(data) {
+    return Axios.get('admin/renters/application', data);
+  },
+  ownerAuthInfo(data) {
+    return Axios.get(`admin/owner/application/${data}`);
+  },
+  renterAuthInfo(data) {
+    return Axios.get(`admin/renters/application/${data}`);
+  },
+  // 提交拒绝原因
+  submitDenyInfo(data) {
+    return Axios.post('admin/owner/application', data);
+  },
   // 找回密码发送邮件
   forgetPwd(data) {
     return Axios.post('user/forgetPwd', data);

@@ -1,56 +1,56 @@
 <template>
   <div>
-  <div :class="$style.mask"></div>
-   <model-form :class="$style.view">
-    <el-form slot="left" label-width="120px">
-      <label :class="$style.label"> 审核信息 </label>
-      <el-form-item label="审核状态">
-        {{form.status}}
-      </el-form-item>
-      <el-form-item label="审核人">
-        {{form.auditor}}
-      </el-form-item>
-      <el-form-item label="审核时间">
-        {{form.date}}
-      </el-form-item>
-      <label :class="$style.label"> 基本信息 </label>
-      <el-form-item label="仓库名称">
-        {{form.warehouse_name_cn}}
-      </el-form-item>
-      <el-form-item label="英文名称">
-        {{form.warehouse_name_en}}
-      </el-form-item>
-      <el-form-item label="仓库产权方">
-        {{form.warehouse_property}}
-      </el-form-item>
-      <el-form-item label="联系电话">
-        {{form.contact_number}}
-      </el-form-item>
-      <label :class="$style.label">地址信息</label>
-      <el-form-item label="国家">
-        {{form.country}}
-      </el-form-item>
-      <el-form-item label="邮政编码">
-        {{form.contact_email}}
-      </el-form-item>
-      <el-form-item label="门牌号">
-        {{form.door_no}}
-      </el-form-item>
-      <el-form-item label="城市">
-        {{form.city}}
-      </el-form-item>
-      <el-form-item label="街道">
-        {{form.street}}
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="goBack">返回</el-button>
-      </el-form-item>
-    </el-form>
+    <div :class="$style.mask"></div>
+    <model-form :class="$style.view">
+      <el-form slot="left" label-width="120px">
+        <label :class="$style.label"> 审核信息 </label>
+        <el-form-item label="审核状态">
+          {{form.status}}
+        </el-form-item>
+        <el-form-item label="审核人">
+          {{form.check_operator}}
+        </el-form-item>
+        <el-form-item label="审核时间">
+          {{form.checked_at}}
+        </el-form-item>
+        <label :class="$style.label"> 基本信息 </label>
+        <el-form-item label="仓库名称">
+          {{form.company_name_cn}}
+        </el-form-item>
+        <el-form-item label="英文名称">
+          {{form.company_name_en}}
+        </el-form-item>
+        <el-form-item label="仓库产权方">
+          {{form.warehouse_owner}}
+        </el-form-item>
+        <el-form-item label="联系电话">
+          {{form.phone}}
+        </el-form-item>
+        <label :class="$style.label">地址信息</label>
+        <el-form-item label="国家">
+          {{form.country}}
+        </el-form-item>
+        <el-form-item label="邮政编码">
+          {{form.postcode}}
+        </el-form-item>
+        <el-form-item label="门牌号">
+          {{form.door_no}}
+        </el-form-item>
+        <el-form-item label="城市">
+          {{form.city}}
+        </el-form-item>
+        <el-form-item label="街道">
+          {{form.street}}
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="goBack">返回</el-button>
+        </el-form-item>
+      </el-form>
 
-    <div slot="right">
-      <label :class="$style.label"> 仓库平面图(选填) </label>
-    </div>
-   </model-form>
+      <div slot="right">
+        <label :class="$style.label"> 仓库平面图(选填) </label>
+      </div>
+    </model-form>
   </div>
 </template>
 
@@ -67,17 +67,18 @@ export default {
     return {
       form: {
         status: '', // 审核状态
-        auditor: '', // 审核人
-        date: '', // 审核时间
-        warehouse_name_cn: '', // 仓库中文名
-        warehouse_name_en: '', // 仓库英文名
-        contact_number: '',
+        check_operator: '', // 审核人
+        checked_at: '', // 审核时间
+        company_name_cn: '', // 仓库中文名
+        company_name_en: '', // 仓库英文名
+        warehouse_owner: '',
+        phone: '',
         country: '', // 国家
-        contact_email: '', // 邮箱
+        postcode: '', // 邮箱
         door_no: '', // 门牌号
         city: '', // 城市
         street: '', // 街道
-        warehouse_plan: '', // logo
+        company_plan: '', // logo
       },
     };
   },
@@ -94,13 +95,13 @@ export default {
   methods: {
     goBack() {
       this.$router.push({
-        name: 'renterList',
+        name: 'authList',
       });
     },
     getInfo() {
-      $http.WarehouseInfo(this.$route.query.id).then((res) => {
-        res.data_id = res.data.id;
+      $http.renterAuthInfo(this.$route.query.id).then((res) => {
         this.form = res.data;
+        console.log(1, this.form);
       });
     },
   },

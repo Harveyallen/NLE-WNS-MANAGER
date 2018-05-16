@@ -66,11 +66,6 @@ export const routerMap = [
             nav: 0,
           },
           {
-            name: 'storeInfo',
-            path: 'userGroupList/storeInfo',
-            nav: 0,
-          },
-          {
             name: 'storeInfoDetails',
             path: 'userGroupList/storeInfoDetails',
             nav: 0,
@@ -103,6 +98,11 @@ export const routerMap = [
           {
             name: 'storeList',
             path: 'authList/storeList',
+            nav: 0,
+          },
+          {
+            name: 'storeInfo',
+            path: 'authList/storeInfo',
             nav: 0,
           },
           {

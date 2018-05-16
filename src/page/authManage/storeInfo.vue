@@ -106,7 +106,7 @@ export default {
   methods: {
     goBack() {
       this.$router.push({
-        name: 'storeInfo',
+        name: 'storeList',
       });
     },
     // 获取仓库单条信息

@@ -39,6 +39,7 @@ export default {
   methods: {
     // 返回选中的tag
     handleClick(val) {
+      console.log(val);
       this.$emit('input', val.name);
       this.$emit('change', val.name);
       this.$router.replace({

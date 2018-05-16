@@ -16,11 +16,11 @@ function getView(viewName) {
           userGroupList: require('@/page/userManage/userGroupList'), // 员工组列表
           userGroupAdd: require('@/page/userManage/userGroupAdd'), // 新增员工组
           manageAdd: require('@/page/userManage/manageAdd'), // 新增员工组
-          storeInfo: require('@/page/userManage/storeInfo'), // 创建仓库预览
           storeInfoDetails: require('@/page/userManage/storeInfoDetails'), // 仓库详情
           storeSubmitDetails: require('@/page/userManage/storeSubmitDetails'), // 仓库提交详情
           authList: require('@/page/authManage/authList'), // 仓库所有者权限认证状态列表------authManage模块
           storeList: require('@/page/authManage/storeList'), // 仓库列表
+          storeInfo: require('@/page/authManage/storeInfo'), // 创建仓库预览
           authInfo: require('@/page/authManage/authInfo'), // 列表详情
           renterList: require('@/page/authManage/renterList'), // 仓库租户权限认证状态列表
           renterInfo: require('@/page/authManage/renterInfo'), // 列表详情

@@ -26,30 +26,39 @@
       style="width: 98%;margin:0 auto;">
       <el-table-column
         prop="mail"
-        label="仓库名称">
+        label="用户邮箱"
+        width="180">
       </el-table-column>
       <el-table-column
         prop="date_register"
-        label="仓库编号">
+        label="提交申请权限认证时间"
+        width="180">
       </el-table-column>
       <el-table-column
         prop="audit_status"
-        label="国家">
+        label="可创建/已创建私有仓库数"
+        width="200">
       </el-table-column>
       <el-table-column
         prop="audit_status"
-        label="仓库面积（平方米）">
+        label="可创建/已创建公共仓库数"
+        width="200">
       </el-table-column>
       <el-table-column
         prop="audit_status"
-        label="开通状态">
+        label="审核人">
       </el-table-column>
       <el-table-column
         prop="handle"
         label="操作"
-        width="400">
+        width="330">
         <template slot-scope="scope">
-          <el-button size="mini" @click="storeInfo(scope.row.id)">仓库详情</el-button>
+          <div>
+            <el-button size="mini" @click="setStoreNumber(scope.row.id)">仓库数设置</el-button>
+            <el-button size="mini" @click="storeList(scope.row.id, scope)">查看仓库</el-button>
+            <el-button size="mini" @click="authDetail(scope.row.id, 0)">申请详情</el-button>
+            <el-button size="mini" @click="authDetail(scope.row.id, 1)">详情</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -66,8 +75,9 @@ export default {
   data() {
     return {
       tag_data: [
-        { name: '0', label: '私有仓库' },
-        { name: '1', label: '公共仓库' },
+        { name: '0', label: '已通过' },
+        { name: '1', label: '待审核' },
+        { name: '2', label: '未通过' },
       ],
       owner_data: [],
       list_data: [],
@@ -101,7 +111,8 @@ export default {
           const obj = {};
           obj.mail = Item.applicant.email;
           obj.date_register = Item.applicant.created_at;
-          arr.push(obj);
+          const obj2 = Object.assign({}, obj, Item);
+          arr.push(obj2);
         });
         this.list_data = arr;
       });
@@ -109,16 +120,21 @@ export default {
     setStoreNumber() {
       this.seen = true;
     },
-    checkStore() {
+    storeList(id, scope) {
+      console.log(scope);
       this.$router.push({
         name: 'storeList',
-      });
-    },
-    storeInfo(id) {
-      this.$router.push({
-        name: 'storeInfo',
         params: {
           id,
+        },
+      });
+    },
+    authDetail(id, ctr) {
+      this.$router.push({
+        name: 'authInfo',
+        query: {
+          id,
+          ctr,
         },
       });
     },
